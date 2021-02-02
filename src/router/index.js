@@ -5,27 +5,27 @@ import Tabs from '../views/Tabs.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/home'
   },
   {
-    path: '/tabs/',
+    path: '/home/',
     component: Tabs,
     children: [
       {
         path: '',
-        redirect: '/tabs/tab1'
+        redirect: '/home'
       },
       {
-        path: 'tab1',
-        component: () => import('@/views/Tab1.vue')
+        path: 'city',
+        component: () => import('@/views/City.vue')
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2.vue')
+        path: 'department',
+        component: () => import('@/views/Department.vue')
       },
       {
-        path: 'tab3',
-        component: () => import('@/views/Tab3.vue')
+        path: 'region',
+        component: () => import('@/views/Region.vue')
       }
     ]
   }
