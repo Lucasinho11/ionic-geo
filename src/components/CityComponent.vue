@@ -1,5 +1,6 @@
 <template>
-  <form class="label-search" @submit.prevent="findCity">
+  <div class="alert" v-if="alert.error == true"> {{ alert.message}}</div>
+  <form class="label-search" @submit.prevent="verif">
     <ion-header translucent>
       <ion-toolbar>
         <ion-searchbar v-model="searchCity"></ion-searchbar>
@@ -17,6 +18,7 @@
 <script>
 import { IonHeader, IonToolbar, IonSearchbar, IonButton, IonSpinner} from '@ionic/vue';
 
+
 import axios from 'axios';
 export default {
   name: 'CityComponent',
@@ -25,11 +27,30 @@ export default {
       searchCity: '', 
       dataCities: '',
       submit: false,
+      alert:{
+        error: false,
+        message: '',
+      }
       
     }
   },
   emits: ['searchCity'],
   methods:{
+    verif(){
+          if(this.searchCity.length == 0){
+              this.alert.error = true
+              this.alert.message = 'champs vide'
+          }
+          else if(!isNaN(this.searchCity) && this.searchCity.length != 5){
+              this.alert.error = true
+              this.alert.message = 'code postal non valide'
+          }
+          else{
+            this.alert.message = ''
+            this.alert.error = false
+            this.findCity()
+          }
+      },
     spinner(ms){
       this.submit = true
       setTimeout(() => this.submit = false, ms);
@@ -92,10 +113,14 @@ export default {
     display: flex;
     justify-content: center;
 }
-.spinner-search{
-  
+.alert{
+  text-align: center;
+  background-color: #ff0000;
+  padding: 5%;
 }
-
+.label-search{
+  padding-top: 2%;
+}
 #container strong {
   font-size: 20px;
   line-height: 26px;
