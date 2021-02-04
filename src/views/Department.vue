@@ -6,22 +6,20 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Département</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    
+      <DepartmentComponent/>
+      
     </ion-content>
+    
+
   </ion-page>
 </template>
 
 <script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
-
+import DepartmentComponent from '@/components/DepartmentComponent.vue';
 
 export default  {
   name: 'Department',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { DepartmentComponent, IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
 }
 </script>

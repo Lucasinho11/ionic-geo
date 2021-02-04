@@ -3,7 +3,7 @@
   <form class="label-search" @submit.prevent="verif">
     <ion-header translucent>
       <ion-toolbar>
-        <ion-searchbar v-model="searchCity"></ion-searchbar>
+        <ion-searchbar v-model="searchCity" placeholder="Ville ou code postal"></ion-searchbar>
       </ion-toolbar>
     </ion-header>
       <ion-button expand="block" type="submit">Rechercher</ion-button>
