@@ -1,9 +1,10 @@
 <template>
-  <form class="label-search" @submit.prevent="findCities">
+    <div class="alert" v-if="alert.error == true"> {{ alert.message}}</div>
+  <form class="label-search" @submit.prevent="verif">
     <ion-header translucent>
       <ion-item>
             <ion-label>Départements</ion-label>
-            <ion-select ok-text="Valider"  cancel-text="Annuler" v-model="searchCities" >
+            <ion-select ok-text="Valider"  cancel-text="Annuler" v-model="department" >
               <ion-select-option v-for="data in allDepartments" :key="data.id" :value="data.code">{{data.code }} - {{ data.nom }}</ion-select-option> 
             </ion-select>
       </ion-item>
@@ -14,7 +15,7 @@
         <ion-spinner v-if="submit == true" color="primary" class="spinner-search"></ion-spinner>
     </div>
           
-    <p style="display: none;">{{searchCities}}</p>
+    <p style="display: none;">{{department}}</p>
 </template>
 
 <script>
@@ -26,25 +27,38 @@ export default {
   name: 'DepartmentComponent',
   data(){
     return{        
-      searchCities: '', 
+      department: '', 
       allDepartments: '',
       submit: false,
-      
+       alert:{
+        error: false,
+        message: '',
+      }
     }
   },
-  emits: ['searchCity'],
   methods:{
     spinner(ms){
       this.submit = true
       setTimeout(() => this.submit = false, ms);
     },
+    verif(){
+        if(this.department.length == 0){
+              this.alert.error = true
+              this.alert.message = 'Veuillez selectionner un département'
+          }
+          else{
+            this.alert.message = ''
+            this.alert.error = false
+            this.findCities()
+          }
+    },
     findCities(){
-        console.log(this.searchCities)
+        this.spinner(500)
         axios
-        .get(`https://geo.api.gouv.fr/departements/${this.searchCities}/communes`)
+        .get(`https://geo.api.gouv.fr/departements/${this.department}/communes`)
         .then((response) =>{
             console.log(response.data);
-            console.log(this.searchCities)
+            console.log(this.department)
         })
         .catch((error) => {
           console.log(error);
@@ -84,7 +98,11 @@ export default {
     display: flex;
     justify-content: center;
 }
-
+.alert{
+  text-align: center;
+  background-color: #ff0000;
+  padding: 5%;
+}
 .label-search{
   padding-top: 2%;
 }
