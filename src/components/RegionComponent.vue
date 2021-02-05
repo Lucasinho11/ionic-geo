@@ -3,9 +3,9 @@
   <form class="label-search" @submit.prevent="verif">
     <ion-header translucent>
       <ion-item>
-            <ion-label>Départements</ion-label>
-            <ion-select ok-text="Valider"  cancel-text="Annuler" v-model="department" >
-              <ion-select-option v-for="data in allDepartments" :key="data.id" :value="data.code">{{data.code }} - {{ data.nom }}</ion-select-option> 
+            <ion-label>Régions</ion-label>
+            <ion-select ok-text="Valider"  cancel-text="Annuler" v-model="region" >
+              <ion-select-option v-for="data in allRegions" :key="data.id" :value="data.code">{{data.code }} - {{ data.nom }}</ion-select-option> 
             </ion-select>
       </ion-item>
     </ion-header>
@@ -23,20 +23,20 @@ import { IonHeader, IonItem,IonLabel, IonSelect, IonSelectOption,IonButton, IonS
 
 import axios from 'axios';
 export default {
-  name: 'DepartmentComponent',
+  name: 'RegionComponent',
   data(){
     return{        
-      department: '', 
-      allDepartments: '',
-      allCitiesDepartment: '',
+
       submit: false,
+      region: '',
        alert:{
         error: false,
         message: '',
+        allRegions: '',
       }
     }
   },
-  emits: ['searchCitiesInDepartment'],
+  emits:['regions'],
   methods:{
     spinner(ms){
       this.submit = true
@@ -45,36 +45,21 @@ export default {
     verif(){
         if(this.department.length == 0){
               this.alert.error = true
-              this.alert.message = 'Veuillez selectionner un département'
+              this.alert.message = 'Veuillez selectionner une région'
           }
           else{
             this.alert.message = ''
             this.alert.error = false
-            this.findCities()
+            this.findDepartments()
           }
     },
-    findCities(){
-        this.spinner(500)
-        axios
-        .get(`https://geo.api.gouv.fr/departements/${this.department}/communes?boost=population&fields=code,nom,departement,region,population,codesPostaux`)
-        .then((response) =>{
-            console.log(response.data);
-            this.allCitiesDepartment = response.data
-            this.$emit('searchCitiesInDepartment', this.allCitiesDepartment);
-            console.log(this.department)
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-      
-    }
     },
     mounted(){
             axios
-                .get(`https://geo.api.gouv.fr/departements`)
+                .get(`https://geo.api.gouv.fr/regions`)
                 .then((response) =>{
-                    this.allDepartments = response.data
-                    //console.log(response.data);
+                    this.allRegions = response.data
+                    this.$emit('regions', this.allRegions);
                     console.log(response.data)
                 })
                 .catch((error) => {

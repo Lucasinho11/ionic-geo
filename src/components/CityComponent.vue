@@ -12,7 +12,7 @@
         <ion-spinner v-if="submit == true" color="primary" class="spinner-search"></ion-spinner>
     </div>
           
-    <p style="display: none;">{{searchCity}}</p>
+    
 </template>
 
 <script>

@@ -7,6 +7,9 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <CityComponent @searchCity='searchCity'/>
+      <div class="badge" style="text-align: center">
+        <ion-badge v-if="dataCities" color="success">{{ dataCities.length }} {{ result}}</ion-badge>
+      </div>
       <ion-card v-for="data in dataCities" :key="data.id">
       <ion-card-header>
         <ion-card-subtitle>{{ data.code }}</ion-card-subtitle>
@@ -27,7 +30,7 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent} from '@ionic/vue';
+import { IonPage, IonBadge, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent} from '@ionic/vue';
 import CityComponent from '@/components/CityComponent.vue';
 
 export default  {
@@ -35,12 +38,19 @@ export default  {
   data(){
     return{        
       dataCities: '',
+      result: '',
     }
   },
-  components: { CityComponent, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent },
+  components: { CityComponent,IonBadge,  IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent },
   methods:{
     searchCity(value) {
       this.dataCities = value
+      if(this.dataCities.length > 1){
+          this.result = 'communes'
+      }
+      else{
+        this.result = 'commune'
+      }
       console.log(value)
     },
   }
