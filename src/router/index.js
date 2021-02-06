@@ -5,7 +5,13 @@ import Tabs from '../views/Tabs.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    component: Tabs,
+    children: [
+    {
+      path: '',
+      component: () => import('@/views/Home.vue')
+    }]
+    
   },
   {
     path: '/home/',
@@ -13,7 +19,7 @@ const routes = [
     children: [
       {
         path: '',
-        redirect: '/home'
+        redirect: '/'
       },
       {
         path: 'city',
