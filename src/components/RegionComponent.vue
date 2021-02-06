@@ -14,9 +14,8 @@
     <div class="div-spinner">
         <ion-spinner v-if="submit == true" color="primary" class="spinner-search"></ion-spinner>
     </div>
-          
+        
 </template>
-
 <script>
 import { IonHeader, IonItem,IonLabel, IonSelect, IonSelectOption,IonButton, IonSpinner} from '@ionic/vue';
 
@@ -25,25 +24,24 @@ import axios from 'axios';
 export default {
   name: 'RegionComponent',
   data(){
-    return{        
-
+    return{       
+        region: '',
+        allRegions: '', 
+        allDepartmentsSearch: '',
       submit: false,
-      region: '',
        alert:{
         error: false,
         message: '',
-        allRegions: '',
       }
     }
   },
-  emits:['regions'],
   methods:{
-    spinner(ms){
+      spinner(ms){
       this.submit = true
       setTimeout(() => this.submit = false, ms);
     },
-    verif(){
-        if(this.department.length == 0){
+      verif(){
+          if(this.region.length == 0){
               this.alert.error = true
               this.alert.message = 'Veuillez selectionner une région'
           }
@@ -52,14 +50,30 @@ export default {
             this.alert.error = false
             this.findDepartments()
           }
+      },
+      findDepartments(){
+          console.log(this.region)
+        this.spinner(500)
+        axios
+        .get(`https://geo.api.gouv.fr/regions/${this.region}/departements`)
+        .then((response) =>{
+            console.log(response.data);
+            this.allDepartmentsSearch = response.data
+            this.$emit('searchDepartments', this.allDepartmentsSearch);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      
+    }
     },
-    },
+    emits: ['searchDepartments'],
     mounted(){
             axios
                 .get(`https://geo.api.gouv.fr/regions`)
                 .then((response) =>{
                     this.allRegions = response.data
-                    this.$emit('regions', this.allRegions);
+                    //console.log(response.data);
                     console.log(response.data)
                 })
                 .catch((error) => {
