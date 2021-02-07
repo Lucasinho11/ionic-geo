@@ -41,11 +41,13 @@ export default {
           if(this.searchCity.length == 0){
               this.alert.error = true
               this.alert.message = 'champs vide'
+              setTimeout(() => this.alert.error = false, 2000);
               
           }
           else if(!isNaN(this.searchCity) && this.searchCity.length != 5){
               this.alert.error = true
               this.alert.message = 'code postal non valide'
+              setTimeout(() => this.alert.error = false, 2000);
           }
           else{
             this.alert.message = ''

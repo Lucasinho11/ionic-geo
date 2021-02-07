@@ -46,6 +46,7 @@ export default {
         if(this.department.length == 0){
               this.alert.error = true
               this.alert.message = 'Veuillez selectionner un département'
+              setTimeout(() => this.alert.error = false, 2000);
           }
           else{
             this.alert.message = ''

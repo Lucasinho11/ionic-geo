@@ -44,6 +44,7 @@ export default {
           if(this.region.length == 0){
               this.alert.error = true
               this.alert.message = 'Veuillez selectionner une région'
+              setTimeout(() => this.alert.error = false, 2000);
           }
           else{
             this.alert.message = ''
