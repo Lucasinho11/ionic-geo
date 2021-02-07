@@ -3,6 +3,9 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Commune</ion-title>
+        <ion-buttons slot="start">
+          <ion-back-button default-href="/"></ion-back-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -18,9 +21,10 @@
 
       <ion-card-content>
         {{ data.population }} habitants<br>
-        Région: {{ data.region.nom }}<br>
-        Département: {{ data.departement.nom }}<br>
-        Codes postaux: {{data.codesPostaux}}
+        Région: {{ data.region.nom }} ({{data.region.code}})<br>
+        Département: {{ data.departement.nom }} ({{data.departement.code}})<br>
+        <p v-if="data.codesPostaux.length > 1">Codes postaux: {{data.codesPostaux}}</p>
+        <p v-if="data.codesPostaux.length == 1">Code postal: {{data.codesPostaux}}</p>
       </ion-card-content>
     </ion-card>
     </ion-content>
@@ -30,7 +34,7 @@
 </template>
 
 <script>
-import { IonPage, IonBadge, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent} from '@ionic/vue';
+import { IonPage, IonBadge, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton} from '@ionic/vue';
 import CityComponent from '@/components/CityComponent.vue';
 
 export default  {
@@ -41,7 +45,7 @@ export default  {
       result: '',
     }
   },
-  components: { CityComponent,IonBadge,  IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent },
+  components: { CityComponent,IonBadge,  IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonButtons, IonBackButton },
   methods:{
     searchCity(value) {
       this.dataCities = value

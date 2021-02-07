@@ -15,8 +15,12 @@
     "@ionic/vue-router": "^5.4.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "jquery": "^3.5.1",
     "vue": "^3.0.0-0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue-toasted": "^1.1.28",
+    "vue-toastr": "^2.1.2",
+    "vue-toastr-2": "0.0.10"
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.6",

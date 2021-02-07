@@ -19,6 +19,7 @@
 import { IonHeader, IonToolbar, IonSearchbar, IonButton, IonSpinner} from '@ionic/vue';
 
 
+
 import axios from 'axios';
 export default {
   name: 'CityComponent',
@@ -40,6 +41,7 @@ export default {
           if(this.searchCity.length == 0){
               this.alert.error = true
               this.alert.message = 'champs vide'
+              
           }
           else if(!isNaN(this.searchCity) && this.searchCity.length != 5){
               this.alert.error = true
@@ -93,9 +95,7 @@ export default {
     IonButton,
     IonSpinner
   },
-    mounted(){
-      
-    }
+
   
 }
 </script>

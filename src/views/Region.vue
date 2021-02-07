@@ -3,6 +3,9 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Région</ion-title>
+        <ion-buttons slot="start">
+        <ion-back-button default-href="/"></ion-back-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -25,7 +28,7 @@
   </ion-page>
 </template>
 <script>
-import { IonPage, IonBadge, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent} from '@ionic/vue';
+import { IonPage, IonBadge, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButtons, IonBackButton} from '@ionic/vue';
 import RegionComponent from '@/components/RegionComponent.vue';
 
 
@@ -37,7 +40,7 @@ export default  {
         result: '',
     }
   },
-  components: { RegionComponent, IonPage, IonBadge, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent },
+  components: { RegionComponent, IonPage, IonBadge, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButtons, IonBackButton },
   methods:{
    searchDepartments(value){
        console.log(value)
