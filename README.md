@@ -1,4 +1,4 @@
-# Region Search App
+# Region Search App 🏢
 
 This is a region, municipality, and department search app developed using Ionic and Vue.js.
 
